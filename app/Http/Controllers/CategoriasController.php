@@ -61,9 +61,8 @@ class CategoriasController extends Controller
      */
     public function edit($id)
     {
-        //
         $categoria=Categorias::find($id);
-        dd($categoria);
+        return view('categorias.edit');
     }
 
     /**
