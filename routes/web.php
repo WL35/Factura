@@ -25,3 +25,8 @@ Route::get('/categorias/create','CategoriasController@create')->name('categoria.
 Route::post('/categorias/store','CategoriasController@store')->name('categoria.store');
 
 Route::get('/categorias/edit/{cat_id}','CategoriasController@edit')->name('categorias.edit');
+
+Route::post('/categorias/update/{cat_id}','CategoriasController@update')->name('categoria.update');
+
+Route::post('/categorias/destroy/{cat_id}','CategoriasController@destroy')->name('categoria.destroy');
+
