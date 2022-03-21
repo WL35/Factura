@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
-            $table->foreignId('cat_id')->references('cat_id')->on('categorias')->default(1);             
+            $table->foreignId('cat_id')->references('cat_id')->on('categorias');
         });
 
 

@@ -14,8 +14,8 @@
                         <div class="form-group row">
                             <label for="usu_name" class="col-md-4 col-form-label text-md-right">Nombre:</label>
                             <div class="col-md-6">
-                                <input id="nombre" type="text" class="form-control @error('usu_name') is-invalid @enderror" name="usu_name" value="{{ old('usu_name') }}" required autocomplete="usu_name" autofocus>
-                                @error('name')
+                                <input id="usu_name" type="text" class="form-control @error('usu_name') is-invalid @enderror" name="usu_name" value="{{ old('usu_name') }}" required autocomplete="usu_name" autofocus>
+                                @error('usu_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
