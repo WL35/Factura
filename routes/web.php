@@ -30,3 +30,7 @@ Route::post('/categorias/update/{cat_id}','CategoriasController@update')->name('
 
 Route::post('/categorias/destroy/{cat_id}','CategoriasController@destroy')->name('categoria.destroy');
 
+Route::get('/movimientos','MovimientosController@index')->name('movimientos');
+
+Route::get('/movimientos/create','MovimientosController@create')->name('movimientos.create');
+
