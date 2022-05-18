@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tipos;
-
+use App\Movimientos;
+use Auth;
+use DB;
+use PDF;
 class MovimientosController extends Controller
 {
     /**
@@ -12,9 +15,35 @@ class MovimientosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('movimientos.index');
+
+
+        $data=$request->all();
+        $desde=date('Y-m-d');
+        $hasta=date('Y-m-d');
+        if(isset($data['desde'])){ ///SI LE HE DADO CLICK AL BOTON BUSCAR
+            $desde=$data['desde'];
+            $hasta=$data['hasta'];
+        }
+        $mov=DB::select("
+            SELECT * FROM movimientos m 
+            JOIN users u ON m.usu_id=u.usu_id 
+            JOIN tipos t ON m.tip_id=t.tip_id
+            WHERE m.mov_fecha BETWEEN '$desde' AND '$hasta' 
+            ");
+
+        if(isset($data['btn_pdf'])){
+            $data=['mov'=>$mov];
+            $pdf = PDF::loadView('movimientos.reporte',$data);
+            return $pdf->stream('reporte.pdf');
+        }
+
+        return view('movimientos.index')
+        ->with('mov',$mov)
+        ->with('desde',$desde)
+        ->with('hasta',$hasta)
+        ;
     }
 
     /**
@@ -40,6 +69,12 @@ class MovimientosController extends Controller
     public function store(Request $request)
     {
         //
+
+        $data=$request->all();
+        $data['usu_id']=Auth::user()->usu_id;
+        Movimientos::create($data);
+        return redirect(route('movimientos'));
+
     }
 
     /**
@@ -62,6 +97,12 @@ class MovimientosController extends Controller
     public function edit($id)
     {
         //
+        $movimiento=Movimientos::find($id);
+        $tipos=Tipos::all();
+        return view('movimientos.edit')
+        ->with('movimiento',$movimiento)
+        ->with('tipos',$tipos)
+        ;
     }
 
     /**
@@ -74,6 +115,9 @@ class MovimientosController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $Mv=Movimientos::find($id);
+        $Mv->update($request->all());
+        return redirect(route('movimientos'));
     }
 
     /**
@@ -84,6 +128,11 @@ class MovimientosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        Movimientos::destroy($id);
+        return redirect(route('movimientos'));
     }
+
+
+
 }

@@ -18,6 +18,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 </head>
 <body>
     <div id="app">
@@ -29,6 +32,7 @@
         <a class="btn btn-default " href="{{route('usuarios')}}">Usuarios</a>
         <a class="btn btn-default " href="{{route('categorias')}}">Categorias</a>
         <a class="btn btn-default " href="{{route('movimientos')}}">Movimientos</a>
+        <a class="btn btn-default " href="{{route('facturas.index')}}">Facturas</a>
 @endguest
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
